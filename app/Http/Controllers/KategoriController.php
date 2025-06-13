@@ -12,21 +12,9 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        $data = kategori::get(); //query mengambil semua data dari tabel kategori
+        $data = kategori::all(); //query mengambil semua data dari tabel kategori
 
-        return view('kategori.index', ['title' => 'Kategori', 'data' => $data, 'url' => '/kategori']);
-    }
-
-    public function data()
-    {
-        $kategori = Kategori::get();
-
-        return datatables()
-            ->of($kategori)
-            ->addIndexColumn()
-            ->addColumn('aksi', '<button class="btn btn-xs btn-info"><i class="fa fa-pen-to-square"></i></button><button class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></i></button>')
-            ->rawColumns(['aksi'])
-            ->make(true);
+        return view('kategori.index', ['data' => $data, 'url' => '/kategori']);
     }
 
     /**
@@ -43,11 +31,16 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         //Validasi
+        $request->validate(
+            ['nama_kategori' => 'required|unique:kategori,nama_kategori'],
+            ['nama_kategori.unique' => 'Nama Kategori sudah ada!']
+        );
 
         $kategori = new Kategori;
         $kategori->nama_kategori = $request->nama_kategori;
         $kategori->save();
 
+        toast()->success('Data Berhasil Disimpan.');
         return redirect('/kategori')->with('pesan', "Data Berhasi Ditambahkan!");
     }
 
@@ -72,10 +65,16 @@ class KategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate(
+            ['nama_kategori' => 'required|unique:kategori,nama_kategori,' . $id],
+            ['nama_kategori.unique' => 'Nama Kategori sudah ada!']
+        );
+
         $kategori = Kategori::find($id);
         $kategori->nama_kategori = $request->nama_kategori;
         $kategori->update();
 
+        toast()->success('Data Berhasil Diubah.');
         return redirect('/kategori')->with('pesan', "Data Berhasi Diubah!");
     }
 
@@ -87,6 +86,7 @@ class KategoriController extends Controller
         $kategori = Kategori::find($id);
         $kategori->delete();
 
-        return redirect('/kategori')->with('pesan', 'Data Berhasil Dihapus!');
+        toast()->success('Data Berhasil Dihapus.');
+        return redirect('/kategori');
     }
 }

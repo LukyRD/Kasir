@@ -11,7 +11,12 @@
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
-          
+          <li class="nav-item d-none d-sm-inline-block">
+            <form action="logout" method="post">
+              @csrf
+              <button type="submit" class="btn text-danger">Logout <i class="fa-solid fa-right-from-bracket ml-2"></i></button>
+            </form>
+            </li>
         </ul>
       </nav>
       <!-- /.navbar -->

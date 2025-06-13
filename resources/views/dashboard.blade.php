@@ -1,8 +1,9 @@
-<x-layout>
-<x-slot:title>{{$title}}</x-slot:title>
-
-  <div class="container-fluid">
-
+@extends('layouts.app')
+@section('content-title', 'Dashboard')
+@section('content')
+<div class="card">
+  <div class="card-body">Selamat datang di website {{config('app.name')}}, <strong class="capitalize">{{auth()->user()->name}}</strong></div>
+</div>
     <!-- Info boxes -->
     <div class="row">
       <div class="col-12 col-sm-6 col-md-3">
@@ -293,7 +294,4 @@
       <!-- /.col-md-6 -->
     </div>
     <!-- /.row -->
-  </div>
-  <!-- /.container-fluid -->
-  
-</x-layout>
+@endsection
