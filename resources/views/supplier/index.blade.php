@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('content-title', 'Kategori')
+@section('content-title', 'Supplier')
 @section('content')
 
 <div class="row">
@@ -14,28 +14,32 @@
                         @endforeach
                     </div>
                 @endif
-                <button id="tambah" type="button" class="btn btn-dark btn-sm mb-3" onclick="addForm('{{route('kategori.store')}}')">
+                <button id="tambah" type="button" class="btn btn-dark btn-sm mb-3" onclick="addForm('{{route('supplier.store')}}')">
                     <i class="fa-regular fa-circle-plus mr-1"></i> Tambah</button>
                 <div class="table-responsive">
                     <table id="" class="table table-bordered table-hover table-sm">
                         <thead>
                             <tr>
                                 <th class="text-center" width='10%'>No</th>
-                                <th class="text-center">Kategori</th>
+                                <th class="text-center">Nama Supplier</th>
+                                <th class="text-center">Alamat</th>
+                                <th class="text-center">No Telepon</th>
                                 <th class="text-center" width='15%'><i class="fa-solid fa-gear"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data as $kategori)
+                            @foreach ($data as $supplier)
                             <tr>
                                 <td class="text-center">{{$loop->iteration}}</td>
-                                <td>{{$kategori['nama_kategori']}}</td>
+                                <td>{{$supplier['nama']}}</td>
+                                <td class="text-center">{{$supplier['alamat']}}</td>
+                                <td class="text-center">{{$supplier['telepon']}}</td>
                                 <td class="text-center">
                                     <button class="btn btn-success btn-xs"
-                                        onclick="updateForm('{{$url}}/{{$kategori['id']}}', '{{$kategori}}')" type="button"
+                                        onclick="updateForm('{{$url}}/{{$supplier['id']}}', '{{$supplier}}')" type="button"
                                         data-toggle="modal" data-target="#modal"><i
                                             class="fa fa-pen-to-square"></i></button>
-                                    <form action="/kategori/{{$kategori['id']}}" class="d-inline"
+                                    <form action="/supplier/{{$supplier['id']}}" class="d-inline"
                                         method="post">
                                         @csrf
                                         @method('delete')
@@ -58,7 +62,7 @@
 </div>
 <!-- /.row -->
 
-@include('kategori.form')
+@include('supplier.form')
 
 @endsection
 @push('script')
@@ -91,24 +95,26 @@ $(function () {
 
 function addForm(url) {
     $("#modal-form").modal("show");
-    $("#modal-form .modal-title").text("Tambah Kategori");
+    $("#modal-form .modal-title").text("Tambah Supplier");
 
     $("#modal-form form")[0].reset();
     $("#modal-form form").attr("action", url);
     $("#modal-form [name=_method]").val("post");
-    $("modal-form [name=nama_kategori]").focus();
+    $("modal-form [name=nama]").focus();
 }
 
 function updateForm(url, data) {
-    $kategori = JSON.parse(data);
+    $supplier = JSON.parse(data);
     $("#modal-form").modal("show");
-    $("#modal-form .modal-title").text("Edit Kategori");
+    $("#modal-form .modal-title").text("Edit Supplier");
 
     $("#modal-form form")[0].reset();
     $("#modal-form form").attr("action", url);
     $("#modal-form [name=_method]").val("put");
-    $("modal-form [name=nama_kategori]").focus();
-    $("#modal-form [name=nama_kategori]").val($kategori.nama_kategori);
+    $("modal-form [name=nama]").focus();
+    $("#modal-form [name=nama]").val($supplier.nama);
+    $("#modal-form [name=alamat]").val($supplier.alamat);
+    $("#modal-form [name=telepon]").val($supplier.telepon);
 }
 </script>
 @endpush

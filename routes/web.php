@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['guest'])->group(function () {
@@ -15,11 +16,17 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::resource('/kategori', KategoriController::class)->names([
         'index' => 'kategori',
     ]);
+
     Route::resource('/produk', ProdukController::class)->names([
         'index' => 'produk',
+    ]);
+
+    Route::resource('/supplier', SupplierController::class)->names([
+        'index' => 'supplier',
     ]);
     // Route::prefix('master-data')->as('master-data.')->group(function () {
     // Route::prefix('kategori')->as('kategori')->controller(KategoriController::class)->group(function () {

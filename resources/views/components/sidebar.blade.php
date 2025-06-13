@@ -48,7 +48,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link {{request()->routeIs('supplier') ? 'active' : ''}}">
+          <a href="supplier" class="nav-link {{request()->routeIs('supplier') ? 'active' : ''}}">
             <i class="nav-icon fa fa-truck"></i>
             <p>Supplier</p>
           </a>
