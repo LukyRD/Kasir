@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="index3.html" class="brand-link">
+  <a href="dashboard" class="brand-link">
     <img src="{{asset('AdminLTE-3.2/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo"
       class="brand-image img-circle elevation-3" style="opacity: 0.8" />
     <span class="brand-text font-weight-light">{{config('app.name')}}</span>
@@ -57,19 +57,19 @@
         <li class="nav-header">Transaksi</li>
 
         <li class="nav-item">
-          <a href="#" class="nav-link {{request()->routeIs('pengeluaran') ? 'active' : ''}}">
+          <a href="barang-masuk" class="nav-link {{request()->routeIs('barang-masuk.*') ? 'active' : ''}}">
             <i class="nav-icon fa fa-cart-shopping"></i>
-            <p>Pengeluaran</p>
+            <p>Barang Masuk</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link {{request()->routeIs('daftar-pembelian') ? 'active' : ''}}">
+          <a href="#" class="nav-link {{request()->routeIs('laporan-pembelian') ? 'active' : ''}}">
             <i class="nav-icon fa fa-file-circle-plus"></i>
-            <p>Daftar Pembelian</p>
+            <p>Laporan Pembelian</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link {{request()->routeIs('transaksi-pembelian') ? 'active' : ''}}">
+          <a href="laporan-pembelian" class="nav-link {{request()->routeIs('transaksi-pembelian') ? 'active' : ''}}">
             <i class="nav-icon fa fa-right-to-bracket"></i>
             <p>Transaksi Pembelian</p>
           </a>
@@ -105,15 +105,15 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link {{request()->routeIs('setting') ? 'active' : ''}}">
+          <a href="#" class="nav-link {{request()->routeIs('profil') ? 'active' : ''}}">
             <i class="nav-icon fa fa-user-circle"></i>
-            <p>Setting</p>
+            <p>Profil</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link {{request()->routeIs('profil') ? 'active' : ''}}">
+          <a href="#" class="nav-link {{request()->routeIs('setting') ? 'active' : ''}}">
             <i class="nav-icon fa fa-gear"></i>
-            <p>Profil</p>
+            <p>Setting</p>
           </a>
         </li>
         {{-- <li class="nav-item {{request()->routeIs('master-data.*') ? 'menu-open' : ''}}">

@@ -2,7 +2,7 @@
 @section('content-title', 'Dashboard')
 @section('content')
 <div class="card">
-  <div class="card-body">Selamat datang di website {{config('app.name')}}, <strong class="capitalize">{{auth()->user()->name}}</strong></div>
+  <div class="card-body">Selamat datang di website {{config('app.name')}}, <strong class="capitalize">{{ucwords(auth()->user()->name)}}</strong></div>
 </div>
     <!-- Info boxes -->
     <div class="row">

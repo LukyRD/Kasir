@@ -17,7 +17,6 @@ class ProdukController extends Controller
 
     public function store(Request $request)
     {
-
         //Validasi
         $request->validate(
             [
@@ -121,5 +120,23 @@ class ProdukController extends Controller
 
         toast()->success('Data Berhasil Dihapus.');
         return redirect('/produk');
+    }
+
+    public function getData()
+    {
+        $search = request()->query('search');
+
+        $query = Produk::query();
+        $produk = $query->where('nama_produk', 'like', '%' . $search . '%')->get();
+
+        return response()->json($produk);
+    }
+
+    public function cekStok()
+    {
+        $id = request()->query('id');
+        $stok = Produk::find($id)->stok;
+
+        return response()->json($stok);
     }
 }

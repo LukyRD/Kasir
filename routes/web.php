@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\ProdukController;
@@ -17,6 +18,11 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::prefix('get-data')->as('get-data.')->group(function () {
+        Route::get('/produk', [ProdukController::class, 'getData'])->name('produk');
+        Route::get('/cek-stok-produk', [ProdukController::class, 'cekStok'])->name('cek-stok');
+    });
+
     Route::resource('/kategori', KategoriController::class)->names([
         'index' => 'kategori',
     ]);
@@ -28,14 +34,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/supplier', SupplierController::class)->names([
         'index' => 'supplier',
     ]);
-    // Route::prefix('master-data')->as('master-data.')->group(function () {
-    // Route::prefix('kategori')->as('kategori')->controller(KategoriController::class)->group(function () {
-    // Route::get('kategori', [KategoriController::class, 'index'])->name('kategori');
-    // Route::post('kategori', [KategoriController::class, 'store'])->name('store');
-    // Route::get('kategori/{kategori}', [KategoriController::class, 'show'])->name('show');
-    // Route::put('kategori/{kategori}', [KategoriController::class, 'update'])->name('update');
-    // Route::delete('kategori/{kategori}', [KategoriController::class, 'destroy'])->name('delete');
-    // Route::get('kategori/{kategori}/edit', [KategoriController::class, 'edit'])->name('edit');
-    // });
-    // });
+    Route::prefix('barang-masuk')->as('barang-masuk.')->controller(BarangMasukController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+    });
+    Route::get('laporan', [BarangMasukController::class, 'laporan'])->name('laporan');
 });
