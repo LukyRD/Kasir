@@ -6,6 +6,7 @@ use App\Models\BarangMasuk;
 use App\Models\ItemsBarangMasuk;
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class BarangMasukController extends Controller
 {
@@ -38,7 +39,7 @@ class BarangMasukController extends Controller
         $produk = $request->produk;
         foreach ($produk as $item) {
             ItemsBarangMasuk::create([
-                'nomor_penerimaan' => $brMasuk->no_penerimaan,
+                'no_penerimaan' => $brMasuk->no_penerimaan,
                 'nama_produk' => $item['nama_produk'],
                 'qty' => $item['qty'],
                 'harga_beli' => $item['harga_beli'],
@@ -50,5 +51,23 @@ class BarangMasukController extends Controller
 
         toast()->success('Data Berhasil Ditambahkan!');
         return redirect()->route('barang-masuk.index');
+    }
+
+    public function laporan()
+    {
+        $data = BarangMasuk::orderBy('created_at', 'desc')->get()->map(function ($item) {
+            $item->tanggal_penerimaan = Carbon::parse($item->created_at)->locale('id')->translatedFormat('l, d F Y');
+            return $item;
+        });
+        return view('laporan.laporan-pembelian', ['data' => $data]);
+    }
+
+    public function detailLaporan(String $no_penerimaan)
+    {
+        $data = BarangMasuk::with('items')->where('no_penerimaan', $no_penerimaan)->first();
+        $data->tanggal_penerimaan = Carbon::parse($data->created_at)->locale('id')->translatedFormat('l, d F Y');
+        $data->subTotal = $data->items->sum('total');
+
+        return view('laporan.detail-laporan-pembelian', ['data' => $data]);
     }
 }

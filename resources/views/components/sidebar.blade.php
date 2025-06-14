@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="dashboard" class="brand-link">
+  <a href="/dashboard" class="brand-link">
     <img src="{{asset('AdminLTE-3.2/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo"
       class="brand-image img-circle elevation-3" style="opacity: 0.8" />
     <span class="brand-text font-weight-light">{{config('app.name')}}</span>
@@ -36,19 +36,19 @@
         <li class="nav-header">MASTER</li>
 
         <li class="nav-item">
-          <a href="kategori" class="nav-link {{request()->routeIs('kategori') ? 'active' : ''}}">
+          <a href="/kategori" class="nav-link {{request()->routeIs('kategori') ? 'active' : ''}}">
             <i class="nav-icon fa fa-boxes-stacked"></i>
             <p>Kategori</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="produk" class="nav-link {{request()->routeIs('produk') ? 'active' : ''}}">
+          <a href="/produk" class="nav-link {{request()->routeIs('produk') ? 'active' : ''}}">
             <i class="nav-icon fa fa-store"></i>
             <p>Produk</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="supplier" class="nav-link {{request()->routeIs('supplier') ? 'active' : ''}}">
+          <a href="/supplier" class="nav-link {{request()->routeIs('supplier') ? 'active' : ''}}">
             <i class="nav-icon fa fa-truck"></i>
             <p>Supplier</p>
           </a>
@@ -57,33 +57,27 @@
         <li class="nav-header">Transaksi</li>
 
         <li class="nav-item">
-          <a href="barang-masuk" class="nav-link {{request()->routeIs('barang-masuk.*') ? 'active' : ''}}">
+          <a href="/barang-masuk" class="nav-link {{request()->routeIs('barang-masuk.*') ? 'active' : ''}}">
             <i class="nav-icon fa fa-cart-shopping"></i>
             <p>Barang Masuk</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link {{request()->routeIs('laporan-pembelian') ? 'active' : ''}}">
-            <i class="nav-icon fa fa-file-circle-plus"></i>
+          <a href="/laporan-pembelian" class="nav-link {{request()->routeIs('laporan-pembelian.*') ? 'active' : ''}}">
+            <i class="nav-icon fa fa-file-invoice"></i>
             <p>Laporan Pembelian</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="laporan-pembelian" class="nav-link {{request()->routeIs('transaksi-pembelian') ? 'active' : ''}}">
-            <i class="nav-icon fa fa-right-to-bracket"></i>
-            <p>Transaksi Pembelian</p>
+          <a href="#" class="nav-link {{request()->routeIs('transaksi-pembelian') ? 'active' : ''}}">
+            <i class="nav-icon fa fa-cash-register"></i>
+            <p>Kasir</p>
           </a>
         </li>
         <li class="nav-item">
           <a href="#" class="nav-link {{request()->routeIs('daftar-penjualan') ? 'active' : ''}}">
-            <i class="nav-icon fa fa-file-circle-minus"></i>
-            <p>Daftar Penjualan</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link {{request()->routeIs('transaksi-penjualan') ? 'active' : ''}}">
-            <i class="nav-icon fa fa-right-from-bracket"></i></i>
-            <p>Transaksi Penjualan</p>
+            <i class="nav-icon fa fa-file-invoice-dollar"></i>
+            <p>Laporan Penjualan</p>
           </a>
         </li>
 
@@ -108,12 +102,6 @@
           <a href="#" class="nav-link {{request()->routeIs('profil') ? 'active' : ''}}">
             <i class="nav-icon fa fa-user-circle"></i>
             <p>Profil</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link {{request()->routeIs('setting') ? 'active' : ''}}">
-            <i class="nav-icon fa fa-gear"></i>
-            <p>Setting</p>
           </a>
         </li>
         {{-- <li class="nav-item {{request()->routeIs('master-data.*') ? 'menu-open' : ''}}">

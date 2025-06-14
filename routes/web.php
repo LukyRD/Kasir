@@ -38,5 +38,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/', 'store')->name('store');
     });
-    Route::get('laporan', [BarangMasukController::class, 'laporan'])->name('laporan');
+    Route::prefix('laporan-pembelian')->as('laporan-pembelian.')->group(function () {
+        Route::get('/', [BarangMasukController::class, 'laporan'])->name('laporan');
+        Route::get('/{no_penerimaan}/detail', [BarangMasukController::class, 'detailLaporan'])->name('detail');
+    });
 });
