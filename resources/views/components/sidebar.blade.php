@@ -15,7 +15,9 @@
         <img src="{{asset('AdminLTE-3.2/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image" />
       </div>
       <div class="info">
-        <a href="#" class="d-block">{{auth()->user()->name}}</a>
+        <a href="#" class="d-block">{{auth()->user()->name}}
+        
+        </a>
       </div>
     </div>
 

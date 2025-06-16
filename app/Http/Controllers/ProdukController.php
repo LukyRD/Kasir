@@ -17,6 +17,11 @@ class ProdukController extends Controller
 
     public function store(Request $request)
     {
+        if (auth()->user()->level != 0) {
+
+            toast()->error('Anda tidak memiliki akses untuk menambah produk');
+            return redirect()->back();
+        }
         //Validasi
         $request->validate(
             [
@@ -66,6 +71,11 @@ class ProdukController extends Controller
 
     public function update(Request $request, $id)
     {
+        if (auth()->user()->level != 0) {
+
+            toast()->error('Anda tidak memiliki akses untuk mengubah produk');
+            return redirect()->back();
+        }
         //Validasi
         $request->validate(
             [
@@ -115,6 +125,11 @@ class ProdukController extends Controller
 
     public function destroy($id)
     {
+        if (auth()->user()->level != 0) {
+
+            toast()->error('Anda tidak memiliki akses untuk menghapus produk');
+            return redirect()->back();
+        }
         $produk = Produk::find($id);
         $produk->delete();
 

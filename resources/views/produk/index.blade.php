@@ -14,8 +14,10 @@
                         @endforeach
                     </div>
                 @endif
+                @if(auth()->user()->level == 0)
                 <button id="tambah" type="button" class="btn btn-dark btn-xs mb-3 p-1 " onclick="addForm('{{route('produk.store')}}')">
                     <i class="fa-regular fa-circle-plus mr-1"></i> Tambah</button>
+                    @endif
                 <div class="table-responsive">
                     <table id="" class="table table-bordered table-hover table-sm">
                         <thead>
@@ -29,7 +31,9 @@
                                 <th class="text-center">Stok</th>
                                 <th class="text-center">Stok Min</th>
                                 <th class="text-center">Aktif</th>
+                                @if(auth()->user()->level == 0)
                                 <th class="text-center"><i class="fa-solid fa-gear"></th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -51,6 +55,7 @@
                                         {{$produk['is_active'] ? 'Aktif' : 'Tidak Aktif'}}
                                     </p>
                                 </td>
+                                @if(auth()->user()->level == 0)
                                 <td class="text-center">
                                     <button class="btn btn-success btn-xs"
                                         onclick="updateForm('{{$url}}/{{$produk['id']}}','{{$produk}}')" type="button"
@@ -64,6 +69,7 @@
                                                 onclick="return confirm('Yakin?')"></i></button>
                                     </form>
                                 </td>
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>
