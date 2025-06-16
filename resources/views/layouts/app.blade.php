@@ -14,9 +14,6 @@
     <link rel="stylesheet" href="{{asset ('font-awesome-6.7.2/css/fontawesome.css')}}">
     <link rel="stylesheet" href="{{asset ('font-awesome-6.7.2/css/brands.css')}}">
     <link rel="stylesheet" href="{{asset ('font-awesome-6.7.2/css/solid.css')}}">
-    <link rel="stylesheet" href="{{asset ('font-awesome-6.7.2/css/sharp-thin.css')}}">
-    <link rel="stylesheet" href="{{asset ('font-awesome-6.7.2/css/duotone-thin.css')}}">
-    <link rel="stylesheet" href="{{asset ('font-awesome-6.7.2/css/sharp-duotone-thin.css')}}">
 
     <!-- DataTables v 1.11.4-->
     <link rel="stylesheet" href="{{asset('AdminLTE-3.2/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
@@ -28,6 +25,7 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('AdminLTE-3.2/dist/css/adminlte.min.css')}}" />
+    
 </head>
 <!--
 `body` tag options:

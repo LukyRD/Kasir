@@ -83,6 +83,7 @@
 @push('script')
 <script>
     $(document).ready(function () {
+        // fungsi menghitung sub total
         function hitungTotal(){
             let subTotal = 0;
 
@@ -94,6 +95,42 @@
             $("#sub_total").val(subTotal);
 
         }
+
+        // aksi tombol tambah pada kolom qty
+        $("#table-produk").on("click", ".btn-plus", function () {
+            const row = $(this).closest("tr");
+            let qtyEl = row.find(".qty-text");
+            let qty = parseInt(qtyEl.text());
+            const harga = parseInt(row.data("harga"));
+            const stok = parseInt(row.data("stok"));
+
+            // validasi stok
+            if (qty + 1 > stok) {
+                alert("Stok tidak mencukupi!");
+                return;
+            }
+
+            qty++;
+            qtyEl.text(qty);
+            row.find(".total-cell").text(qty * harga);
+
+            hitungTotal();
+        });
+
+        // aksi tombol kurang pada kolom qty
+        $("#table-produk").on("click", ".btn-minus", function () {
+            const row = $(this).closest("tr");
+            let qtyEl = row.find(".qty-text");
+            let qty = parseInt(qtyEl.text());
+            const harga = parseInt(row.data("harga"));
+
+            if (qty > 1) {
+                qty--;
+                qtyEl.text(qty);
+                row.find(".total-cell").text(qty * harga);
+                hitungTotal();
+            }
+        });
 
         // Proses plugins Select2 Nama produk
             let selectedProduk = {};
@@ -168,37 +205,48 @@
                 const hargaJual = $("#harga_jual").val();
                 const total = parseInt(qty) * parseInt(hargaJual);
 
+                // validasi apabila tidak ada data dipilih
                 if(!selectedId || !qty){
                     alert('Harap pilih data dan jumlah stoknya!');
                     return;
                 }
 
-                // if(qty > currentStok){
-                //     alert('Jumlah melebihi stok tersedia!');
-                //     return;
-                // }
+                // Validasi stok saat input data 
+                if (parseInt(qty) > parseInt(currentStok)) {
+                    alert('Jumlah melebihi stok tersedia!');
+                    return;
+                }
 
                 let produk = selectedProduk[selectedId];
                 let exist = false;
 
-                    // tabel produk setelah menambahkan data jika data belum ada
+                // tabel produk setelah menambahkan data jika sudah ada
                 $('#table-produk tbody tr').each(function(){
                     const rowProduk = $(this).find("td:first").text();
 
                     if (rowProduk === produk.nama_produk) {
-                        let currentQty = parseInt($(this).find("td:eq(1)").text());
+                        let currentQty = parseInt($(this).find(".qty-text").text());
                         let newQty = currentQty + parseInt(qty);
+
+                        // Validasi stok saat data sudah ada
+                        if (newQty > parseInt(currentStok)) {
+                            alert("Total qty melebihi stok tersedia!");
+                            exist = true; // tanda exist supaya tidak tambah baris baru
+                            return false;
+                        }
                         // hitung baru jika menambahkan qty dengan harga sama
                         let newTotal = newQty * parseInt(hargaJual);
 
                         // Update Qty
-                        $(this).find("td:eq(1)").text(newQty);
+                        $(this).find(".qty-text").text(newQty);
+
 
                         // Update Harga Jual (ambil yang terbaru dari input)
                         $(this).find("td:eq(2)").text(hargaJual);
 
                         // Hitung total baru 
-                        $(this).find("td:eq(3)").text(newTotal);
+                        $(this).find(".total-cell").text(newTotal);
+
 
                         exist = true;
                         return false;
@@ -206,21 +254,25 @@
 
                 })
 
-                // Jika data sudah ada
+                // Jika data sudah belum ada, buat baris baru
                 if (!exist) {
                     const row = `
-                    <tr data-id="${produk.id}">
-                        <td>${produk.nama_produk}</td>
-                        <td>${qty}</td>
-                        <td>${hargaJual}</td>
-                        <td>${total}</td>
-                        <td>
-                            <button class="btn btn-danger btn-sm btn-remove">
-                            <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    `
+                        <tr data-id="${produk.id}" data-harga="${hargaJual}" data-stok="${currentStok}">
+                            <td>${produk.nama_produk}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-secondary btn-minus">-</button>
+                                <span class="mx-2 qty-text">${qty}</span>
+                                <button type="button" class="btn btn-sm btn-secondary btn-plus">+</button>
+                            </td>
+                            <td>${hargaJual}</td>
+                            <td class="total-cell">${total}</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm btn-remove">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        `;
                     $("#table-produk tbody").append(row);
                 }
 
@@ -242,15 +294,24 @@
             // Aksi submit data di tabel
             $("#form-kasir").on("submit", function (e) {
                 e.preventDefault();
+                let valid = true;
 
                 $("#data-hidden").html("");
 
                 $("#table-produk tbody tr").each(function(index, row){
                     const namaProduk = $(row).find("td:eq(0)").text();
-                    const qty = $(row).find("td:eq(1)").text();
+                    const qty = $(row).find(".qty-text").text();
                     const hargaJual = $(row).find("td:eq(2)").text();
                     const total = $(row).find("td:eq(3)").text();
                     const produkId = $(row).data('id');
+                    const stok = parseInt($(row).data("stok"));
+
+                    // validasi stok saat transaksi di submit (opsional)
+                    if (qty > stok) {
+                        alert("Qty untuk produk '" + namaProduk + "' melebihi stok!");
+                        valid = false;
+                        return false; // break each
+                    }
 
                     const inputProduk = `<input type="hidden" name="produk[${index}][nama_produk]" value="${namaProduk}">`;
                     const inputQty = `<input type="hidden" name="produk[${index}][qty]" value="${qty}">`;
@@ -261,9 +322,13 @@
                     $("#data-hidden").append(inputProduk, inputQty, inputProdukId, inputHargaJual, inputTotal);
                 });
 
+                // pengkondisian jika tidak valid
+                if (!valid) return;
+
                 this.submit();
             });
 
+            // aksi menghitung kembalian saat input bayar
             $("#bayar").on("input", function () {
                 const subTotal = parseInt($("#sub_total").val()) || 0;
                 const bayar = parseInt($(this).val()) || 0;
