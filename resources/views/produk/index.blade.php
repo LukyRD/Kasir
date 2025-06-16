@@ -131,14 +131,13 @@ function updateForm(url, data) {
     $("modal-form [name=id_produk]").focus();
 
     $("#modal-form [name=nama_produk]").val($produk.nama_produk);
-    // $("#modal-form select[name=id_kategori]").val($produk.id_kategori);
     $("#modal-form select[name=id_kategori]").val($produk.id_kategori).trigger('change');
     $("#modal-form [name=merk]").val($produk.merk);
     $("#modal-form [name=harga_jual]").val($produk.harga_jual);
     $("#modal-form [name=harga_beli]").val($produk.harga_beli);
     $("#modal-form [name=stok]").val($produk.stok);
     $("#modal-form [name=stok_minimal]").val($produk.stok_minimal);
-    // $("#modal-form [name=is_active]").val($produk.nama_produk);
+    $("#modal-form [name=is_active]").prop("checked", $produk.is_active == 1);
 
 }
 </script>

@@ -127,7 +127,10 @@ class ProdukController extends Controller
         $search = request()->query('search');
 
         $query = Produk::query();
-        $produk = $query->where('nama_produk', 'like', '%' . $search . '%')->get();
+        $produk = $query
+            ->where('nama_produk', 'like', '%' . $search . '%')
+            ->where('is_active', 1)
+            ->get();
 
         return response()->json($produk);
     }
