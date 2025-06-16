@@ -54,7 +54,7 @@
           </a>
         </li>
 
-        <li class="nav-header">Transaksi</li>
+        <li class="nav-header">TRANSAKSI</li>
 
         <li class="nav-item">
           <a href="/barang-masuk" class="nav-link {{request()->routeIs('barang-masuk.*') ? 'active' : ''}}">
@@ -62,35 +62,31 @@
             <p>Barang Masuk</p>
           </a>
         </li>
+        
+        <li class="nav-item">
+          <a href="/kasir" class="nav-link {{request()->routeIs('transaksi-pembelian') ? 'active' : ''}}">
+            <i class="nav-icon fa fa-cash-register"></i>
+            <p>Kasir</p>
+          </a>
+        </li>
+        
+        <li class="nav-header">REPORT</li>
+        
         <li class="nav-item">
           <a href="/laporan-pembelian" class="nav-link {{request()->routeIs('laporan-pembelian.*') ? 'active' : ''}}">
             <i class="nav-icon fa fa-file-invoice"></i>
             <p>Laporan Pembelian</p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link {{request()->routeIs('transaksi-pembelian') ? 'active' : ''}}">
-            <i class="nav-icon fa fa-cash-register"></i>
-            <p>Kasir</p>
-          </a>
-        </li>
+
         <li class="nav-item">
           <a href="#" class="nav-link {{request()->routeIs('daftar-penjualan') ? 'active' : ''}}">
             <i class="nav-icon fa fa-file-invoice-dollar"></i>
             <p>Laporan Penjualan</p>
           </a>
         </li>
-
-        <li class="nav-header">Report</li>
-
-        <li class="nav-item">
-          <a href="#" class="nav-link {{request()->routeIs('report') ? 'active' : ''}}">
-            <i class="nav-icon fa fa-clipboard"></i>
-            <p>Report</p>
-          </a>
-        </li>
-
-        <li class="nav-header">Pengaturan</li>
+        
+        <li class="nav-header">PENGATURAN</li>
 
         <li class="nav-item">
           <a href="#" class="nav-link {{request()->routeIs('user') ? 'active' : ''}}">

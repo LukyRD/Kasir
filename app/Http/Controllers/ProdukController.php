@@ -147,4 +147,12 @@ class ProdukController extends Controller
 
         return response()->json($hargaBeli);
     }
+
+    public function cekHargaJual()
+    {
+        $id = request()->query('id');
+        $hargaJual = Produk::find($id)->harga_jual;
+
+        return response()->json($hargaJual);
+    }
 }
