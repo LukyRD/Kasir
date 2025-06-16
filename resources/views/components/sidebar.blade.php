@@ -80,7 +80,7 @@
         </li>
 
         <li class="nav-item">
-          <a href="#" class="nav-link {{request()->routeIs('daftar-penjualan') ? 'active' : ''}}">
+          <a href="/laporan-penjualan" class="nav-link {{request()->routeIs('laporan-penjualan.*') ? 'active' : ''}}">
             <i class="nav-icon fa fa-file-invoice-dollar"></i>
             <p>Laporan Penjualan</p>
           </a>

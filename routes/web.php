@@ -42,6 +42,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/', 'store')->name('store');
     });
+    Route::prefix('laporan-penjualan')->as('laporan-penjualan.')->group(function () {
+        Route::get('/', [KasirController::class, 'laporan'])->name('laporan');
+        Route::get('/{no_kwitansi}/detail', [KasirController::class, 'detailLaporan'])->name('detail');
+    });
     Route::prefix('barang-masuk')->as('barang-masuk.')->controller(BarangMasukController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/', 'store')->name('store');

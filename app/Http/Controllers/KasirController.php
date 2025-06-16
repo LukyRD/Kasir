@@ -6,6 +6,7 @@ use App\Models\ItemsKasir;
 use App\Models\Kasir;
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class KasirController extends Controller
 {
@@ -69,5 +70,23 @@ class KasirController extends Controller
 
         toast()->success('Data Berhasil Ditambahkan!');
         return redirect()->route('kasir.index');
+    }
+
+    public function laporan()
+    {
+        $data = Kasir::orderBy('created_at', 'desc')->get()->map(function ($item) {
+            $item->tanggal_penerimaan = Carbon::parse($item->created_at)->locale('id')->translatedFormat('l, d F Y');
+            return $item;
+        });
+        return view('laporan.laporan-penjualan', ['data' => $data]);
+    }
+
+    public function detailLaporan(String $no_kwitansi)
+    {
+        $data = Kasir::with('items')->where('no_kwitansi', $no_kwitansi)->first();
+        $data->tanggal_penerimaan = Carbon::parse($data->created_at)->locale('id')->translatedFormat('l, d F Y');
+        $data->subTotal = $data->items->sum('total');
+
+        return view('laporan.detail-laporan-penjualan', ['data' => $data]);
     }
 }
