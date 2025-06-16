@@ -10,15 +10,14 @@
                 <div class="d-flex align-items-center justify-content-between p-3 border-bottom">
                     <h4>Form Barang Masuk</h4>
                     <div>
-                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class=" w-50">
                         <div class="form-group my-1">
                             <label for="supplier">Supplier</label>
-                            <input type="text" name="supplier" id="supplier" class="form-control"
-                                value="{{old('supplier')}}">
+                                <select class="form-control" name="supplier" id="select-supplier"></select>
                             @error('supplier')
                             <small class="text-danger">{{$message}}</small>
                             @enderror
@@ -80,6 +79,7 @@
 @push('script')
 <script>
     $(document).ready(function () {
+        // Proses plugins Select2 Nama produk
             let selectedProduk = {};
             $('#select2').select2({
                 theme:"bootstrap",
@@ -110,8 +110,41 @@
                     cache:true
                 },
                 minimumInputLength:1
-            })
+            });
 
+            let selectedSupplier = {};
+            $('#select-supplier').select2({
+                theme:"bootstrap",
+                placeholder:'Cari Supplier...',
+                ajax:{
+                    url:"{{route('get-data.supplier')}}",
+                    dataType:'json',
+                    delay:250,
+                    data:(params)=>{
+                        return {
+                            search:params.term
+                        }
+                    },
+                    processResults:(data)=>{
+                        data.forEach(item => {
+                            selectedSupplier[item.id] = item;
+                        });
+
+                        return {
+                                results:data.map((item)=>{
+                                    return {
+                                        id:item.id,
+                                        text:item.nama
+                                    }
+                                })
+                            }
+                    },
+                    cache:true
+                },
+                minimumInputLength:1
+            });
+
+            // Proses Select 2 mengambil data stok
             $("#select2").on("change", function (e) {
                 let id = $(this).val();
                 $.ajax({
@@ -127,6 +160,23 @@
                 });
             });
 
+            // Proses Select 2 mengambil data stok
+            $("#select2").on("change", function (e) {
+                let id = $(this).val();
+                $.ajax({
+                    type: "GET",
+                    url: "{{route('get-data.cek-harga-beli')}}",
+                    data: {
+                        id:id
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        $("#harga_beli").val(response);
+                    }
+                });
+            });
+
+            // Aksi tombol tambahkan saat ditekan
             $("#btn-add").on("click", function () {
                 const selectedId = $("#select2").val();
                 const qty = $("#qty").val();
@@ -147,19 +197,33 @@
                 let produk = selectedProduk[selectedId];
                 let exist = false;
 
+                    // tabel produk setelah menambahkan data jika data belum ada
                 $('#table-produk tbody tr').each(function(){
                     const rowProduk = $(this).find("td:first").text();
+                    const rowHargaBeli = parseInt($(this).find("td:eq(2)").text());
 
-                    if (rowProduk === produk.nama_produk) {
+                    if (rowProduk === produk.nama_produk && rowHargaBeli === parseInt(hargaBeli)) {
                         let currentQty = parseInt($(this).find("td:eq(1)").text());
                         let newQty = currentQty + parseInt(qty);
+                        // hitung baru jika menambahkan qty dengan harga sama
+                        let newTotal = newQty * parseInt(hargaBeli);
 
+                        // Update Qty
                         $(this).find("td:eq(1)").text(newQty);
+
+                        // Update Harga Beli (ambil yang terbaru dari input)
+                        $(this).find("td:eq(2)").text(hargaBeli);
+
+                        // Hitung total baru 
+                        $(this).find("td:eq(3)").text(newTotal);
+
                         exist = true;
                         return false;
                     }
+
                 })
 
+                // Jika data sudah ada
                 if (!exist) {
                     const row = `
                     <tr data-id="${produk.id}">
@@ -185,10 +249,12 @@
 
             });
 
+            // Aksi tombol remove
             $("#table-produk").on("click", ".btn-remove", function () {
                 $(this).closest("tr").remove();
             });
 
+            // Aksi submit data di tabel
             $("#form-barang-masuk").on("submit", function (e) {
                 e.preventDefault();
 

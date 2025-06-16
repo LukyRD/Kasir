@@ -20,9 +20,9 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <!-- /.login-logo -->
-        <div class="card card-outline card-primary">
+        <div class="card card-outline card-success">
             <div class="card-header text-center">
-                <a href="{{asset('AdminLTE-3.2')}}/index2.html" class="h1"><b>POS</b>APP</a>
+                <h1 class=""><b>POS</b>APP</h1>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
@@ -58,19 +58,19 @@
                     </div>
 
                     <div class="social-auth-links text-center mt-2 mb-3">
-                        <button type="submit" class="btn btn-block btn-primary">
+                        <button type="submit" class="btn btn-block btn-success">
                             Login
                         </button>
-                        <a href="#" class="btn btn-block btn-danger">
+                        {{-- <a href="#" class="btn btn-block btn-danger">
                             <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-                        </a>
+                        </a> --}}
+                    </div>
                 </form>
+                <!-- /.social-auth-links -->
             </div>
-            <!-- /.social-auth-links -->
+            <!-- /.card-body -->
         </div>
-        <!-- /.card-body -->
-    </div>
-    <!-- /.card -->
+        <!-- /.card -->
     </div>
     <!-- /.login-box -->
 

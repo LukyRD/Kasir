@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BarangMasuk;
 use App\Models\ItemsBarangMasuk;
 use App\Models\Produk;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -29,9 +30,11 @@ class BarangMasukController extends Controller
                 'produk.required' => 'Data tidak boleh kosong',
             ]);
 
+        $supplier = Supplier::find($request->supplier);
+
         $brMasuk = BarangMasuk::create([
             'no_penerimaan' => BarangMasuk::nomorPenerimaan(),
-            'supplier' => $request->supplier,
+            'supplier' => $supplier->nama,
             'no_faktur' => $request->no_faktur,
             'kasir' => auth()->user()->name,
         ]);
@@ -47,6 +50,9 @@ class BarangMasukController extends Controller
             ]);
 
             Produk::where("id", $item['id_produk'])->increment('stok', $item['qty']);
+            $produk = Produk::find($item['id_produk']);
+            $produk->harga_beli = $item['harga_beli'];
+            $produk->update();
         }
 
         toast()->success('Data Berhasil Ditambahkan!');

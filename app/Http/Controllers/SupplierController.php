@@ -62,4 +62,14 @@ class SupplierController extends Controller
         toast()->success('Data Berhasil Dihapus.');
         return redirect('/supplier');
     }
+
+    public function getData()
+    {
+        $search = request()->query('search');
+
+        $query = Supplier::query();
+        $supplier = $query->where('nama', 'like', '%' . $search . '%')->get();
+
+        return response()->json($supplier);
+    }
 }

@@ -20,7 +20,9 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('get-data')->as('get-data.')->group(function () {
         Route::get('/produk', [ProdukController::class, 'getData'])->name('produk');
+        Route::get('/supplier', [SupplierController::class, 'getData'])->name('supplier');
         Route::get('/cek-stok-produk', [ProdukController::class, 'cekStok'])->name('cek-stok');
+        Route::get('/cek-harga-beli', [ProdukController::class, 'cekHargaBeli'])->name('cek-harga-beli');
     });
 
     Route::resource('/kategori', KategoriController::class)->names([
