@@ -12,11 +12,11 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="{{asset('AdminLTE-3.2/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image" />
+        <img src="{{ asset('storage/foto_user/' . auth()->user()->foto) }}" class="img-circle" alt="User Image" />
       </div>
       <div class="info">
         {{-- d-flex --}}
-        <a href="#" class=""><strong>{{auth()->user()->name}}</strong> 
+        <a href="/profil" class=""><strong>{{auth()->user()->name}}</strong> 
           <p class=" badge {{auth()->user()->level ? 'badge-warning' : 'badge-info'}}">
             {{auth()->user()->level ? 'Kasir' : 'Admin'}}</p>
         </a>
@@ -102,28 +102,11 @@
         @endif
         
         <li class="nav-item">
-          <a href="#" class="nav-link {{request()->routeIs('profil') ? 'active' : ''}}">
+          <a href="/profil" class="nav-link {{request()->routeIs('profil') ? 'active' : ''}}">
             <i class="nav-icon fa fa-user-circle"></i>
             <p>Profil</p>
           </a>
         </li>
-        {{-- <li class="nav-item {{request()->routeIs('master-data.*') ? 'menu-open' : ''}}">
-          <a href="#" class="nav-link {{request()->routeIs('master-data.*') ? 'active' : ''}}">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Master Data
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="./index.html" class="nav-link {{request()->routeIs('master-data.kategori.*') ? 'active' : ''}}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Kategori</p>
-              </a>
-            </li>
-          </ul>
-        </li> --}}
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

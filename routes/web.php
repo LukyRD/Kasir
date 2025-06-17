@@ -53,6 +53,9 @@ Route::middleware('auth')->group(function () {
         'index' => 'supplier',
     ]);
 
+    Route::get('/profil', [UsersController::class, 'profil'])->name('profil');
+    Route::post('/profil', [UsersController::class, 'editProfil'])->name('edit-profil');
+
     Route::prefix('kasir')->as('kasir.')->controller(KasirController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/', 'store')->name('store');
