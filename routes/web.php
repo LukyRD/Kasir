@@ -34,22 +34,22 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware(['is_admin'])->group(function () {
-        Route::resource('/users', UsersController::class)->names([
+        Route::resource('/users', UsersController::class)->except(['show'])->names([
             'index' => 'users',
         ]);
 
         Route::post('/user/reset-password', [UsersController::class, 'resetPass'])->name('reset-password');
     });
 
-    Route::resource('/kategori', KategoriController::class)->names([
+    Route::resource('/kategori', KategoriController::class)->except(['show'])->names([
         'index' => 'kategori',
     ]);
 
-    Route::resource('/produk', ProdukController::class)->names([
+    Route::resource('/produk', ProdukController::class)->except(['show'])->names([
         'index' => 'produk',
     ]);
 
-    Route::resource('/supplier', SupplierController::class)->names([
+    Route::resource('/supplier', SupplierController::class)->except(['show'])->names([
         'index' => 'supplier',
     ]);
 
