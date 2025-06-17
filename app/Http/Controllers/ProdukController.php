@@ -62,7 +62,7 @@ class ProdukController extends Controller
         $produk->harga_beli = $request->harga_beli;
         $produk->stok = $request->stok;
         $produk->stok_minimal = $request->stok_minimal;
-        $produk->is_active = $request->is_active ? true : false;
+        $produk->is_active = $request->is_active ? false : true;
         $produk->save();
 
         toast()->success('Data Berhasil Disimpan.');
@@ -116,7 +116,7 @@ class ProdukController extends Controller
         $produk->harga_beli = $request->harga_beli;
         $produk->stok = $request->stok;
         $produk->stok_minimal = $request->stok_minimal;
-        $produk->is_active = $request->is_active ? true : false;
+        $produk->is_active = $request->is_active ? false : true;
         $produk->update();
 
         toast()->success('Data Berhasil Diubah.');
@@ -144,7 +144,7 @@ class ProdukController extends Controller
         $query = Produk::query();
         $produk = $query
             ->where('nama_produk', 'like', '%' . $search . '%')
-            ->where('is_active', 1)
+            ->where('is_active', 0)
             ->get();
 
         return response()->json($produk);

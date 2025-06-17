@@ -35,6 +35,8 @@ class BarangMasukController extends Controller
         $brMasuk = BarangMasuk::create([
             'no_penerimaan' => BarangMasuk::nomorPenerimaan(),
             'supplier' => $supplier->nama,
+            'alamat_supplier' => $supplier->alamat,
+            'telepon_supplier' => $supplier->telepon,
             'no_faktur' => $request->no_faktur,
             'kasir' => auth()->user()->name,
         ]);

@@ -15,24 +15,33 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-6">
                         <div class="d-flex align-content-center">
-                            <h6 class="text-bold w-50">Supplier</h6>
-                            <p>{{$data['supplier']}}</p>
+                            <h6 class="text-bold w-50 m-0">Supplier</h6>
+                            <p class="m-0">: {{$data['supplier']}}</p>
                         </div>
                         <div class="d-flex align-content-center">
-                            <h6 class="text-bold w-50">Nomor Faktur</h6>
-                            <p>{{$data['no_faktur']}}</p>
+                            <h6 class="text-bold w-50 m-0">Alamat</h6>
+                            <p class="m-0">: {{$data['alamat_supplier']}}</p>
                         </div>
+                        <div class="d-flex align-content-center">
+                            <h6 class="text-bold w-50 m-0">Telepon</h6>
+                            <p class="m-0">: {{$data['telepon_supplier']}}</p>
+                        </div>
+                        
                     </div>
-                    <div class="col-4">
+                    <div class="col-6">
                         <div class="d-flex align-content-center">
-                            <h6 class="text-bold w-50">Petugas Penerima</h6>
-                            <p>{{$data['kasir']}}</p>
+                            <h6 class="text-bold w-50 m-0">Petugas Penerima</h6>
+                            <p class="m-0">: {{$data['kasir']}}</p>
+                        </div>
+                        <div class="d-flex align-content-center">
+                            <h6 class="text-bold w-50 m-0">Nomor Faktur</h6>
+                            <p class="m-0">: {{$data['no_faktur']}}</p>
                         </div>
                     </div>
                 </div>
-                <div>
+                <div class="mt-4">
                     <table class="table table-sm table-bordered">
                         <thead>
                             <tr class="text-center">

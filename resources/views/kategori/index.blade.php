@@ -7,21 +7,28 @@
         <div class="card">
             <div class="card-body">
                 @if ($errors->any())
-                    <div class="alert alert-danger d-flex flex-column">
-                        @foreach ($errors->all() as $error)
-                            <li class="text-white my-2">{{$error}}</li>
-                        @endforeach
-                    </div>
+                <div class="alert alert-danger d-flex flex-column">
+                    @foreach ($errors->all() as $error)
+                    <li class="text-white my-2">{{$error}}</li>
+                    @endforeach
+                </div>
                 @endif
-                <button id="tambah" type="button" class="btn btn-dark btn-sm mb-3" onclick="addForm('{{route('kategori.store')}}')">
+                @if(auth()->user()->level == 0)
+
+                <button id="tambah" type="button" class="btn btn-dark btn-sm mb-3"
+                    onclick="addForm('{{route('kategori.store')}}')">
                     <i class="fa-regular fa-circle-plus mr-1"></i> Tambah</button>
+                @endif
                 <div class="table-responsive">
                     <table id="" class="table table-bordered table-hover table-sm">
                         <thead>
                             <tr>
                                 <th class="text-center" width='10%'>No</th>
                                 <th class="text-center">Kategori</th>
+                                @if(auth()->user()->level == 0)
                                 <th class="text-center" width='15%'><i class="fa-solid fa-gear"></th>
+                                @endif
+
                             </tr>
                         </thead>
                         <tbody>
@@ -29,19 +36,20 @@
                             <tr>
                                 <td class="text-center">{{$loop->iteration}}</td>
                                 <td>{{$kategori['nama_kategori']}}</td>
+                                @if(auth()->user()->level == 0)
                                 <td class="text-center">
                                     <button class="btn btn-success btn-xs"
-                                        onclick="updateForm('{{$url}}/{{$kategori['id']}}', '{{$kategori}}')" type="button"
-                                        data-toggle="modal" data-target="#modal"><i
+                                        onclick="updateForm('{{$url}}/{{$kategori['id']}}', '{{$kategori}}')"
+                                        type="button" data-toggle="modal" data-target="#modal"><i
                                             class="fa fa-pen-to-square"></i></button>
-                                    <form action="/kategori/{{$kategori['id']}}" class="d-inline"
-                                        method="post">
+                                    <form action="/kategori/{{$kategori['id']}}" class="d-inline" method="post">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-danger btn-xs" type="submit"><i class="fa fa-trash"
                                                 onclick="return confirm('Yakin?')"></i></button>
                                     </form>
                                 </td>
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>

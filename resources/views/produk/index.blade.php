@@ -45,14 +45,15 @@
                                 <td class="text-center">{{$loop->iteration}}</td>
                                 <td>{{$produk['nama_produk']}}</td>
                                 <td class="text-center">{{$produk->kategori['nama_kategori'] ?? ''}}</td>
+                                {{-- <td class="text-center">{{$produk['id_kategori']}}</td> --}}
                                 <td class="text-center">{{$produk['merk']}}</td>
                                 <td class="text-center">Rp. {{number_format($produk['harga_jual'])}}</td>
                                 <td class="text-center">Rp. {{number_format($produk['harga_beli'])}}</td>
                                 <td class="text-center">{{number_format($produk['stok'])}}</td>
                                 <td class="text-center">{{number_format($produk['stok_minimal'])}}</td>
                                 <td class="text-center">
-                                    <p class="badge {{$produk['is_active'] ? 'badge-success' : 'badge-danger'}}">
-                                        {{$produk['is_active'] ? 'Aktif' : 'Tidak Aktif'}}
+                                    <p class="badge {{$produk['is_active'] ? 'badge-danger' : 'badge-success'}}">
+                                        {{$produk['is_active'] ? 'Tidak Aktif' : 'Aktif'}}
                                     </p>
                                 </td>
                                 @if(auth()->user()->level == 0)
@@ -143,7 +144,7 @@ function updateForm(url, data) {
     $("#modal-form [name=harga_beli]").val($produk.harga_beli);
     $("#modal-form [name=stok]").val($produk.stok);
     $("#modal-form [name=stok_minimal]").val($produk.stok_minimal);
-    $("#modal-form [name=is_active]").prop("checked", $produk.is_active == 1);
+    $("#modal-form [name=is_active]").prop("checked", $produk.is_active == 0);
 
 }
 </script>

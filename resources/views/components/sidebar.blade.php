@@ -15,8 +15,10 @@
         <img src="{{asset('AdminLTE-3.2/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image" />
       </div>
       <div class="info">
-        <a href="#" class="d-block">{{auth()->user()->name}}
-        
+        {{-- d-flex --}}
+        <a href="#" class=""><strong>{{auth()->user()->name}}</strong> 
+          <p class=" badge {{auth()->user()->level ? 'badge-warning' : 'badge-info'}}">
+            {{auth()->user()->level ? 'Kasir' : 'Admin'}}</p>
         </a>
       </div>
     </div>
@@ -66,7 +68,7 @@
         </li>
         
         <li class="nav-item">
-          <a href="/kasir" class="nav-link {{request()->routeIs('transaksi-pembelian') ? 'active' : ''}}">
+          <a href="/kasir" class="nav-link {{request()->routeIs('kasir.*') ? 'active' : ''}}">
             <i class="nav-icon fa fa-cash-register"></i>
             <p>Kasir</p>
           </a>
@@ -90,12 +92,15 @@
         
         <li class="nav-header">PENGATURAN</li>
 
+        @if(auth()->user()->level == 0)
         <li class="nav-item">
-          <a href="#" class="nav-link {{request()->routeIs('user') ? 'active' : ''}}">
+          <a href="/users" class="nav-link {{request()->routeIs('users') ? 'active' : ''}}">
             <i class="nav-icon fa fa-user-cog"></i>
-            <p>User</p>
+            <p>Users</p>
           </a>
         </li>
+        @endif
+        
         <li class="nav-item">
           <a href="#" class="nav-link {{request()->routeIs('profil') ? 'active' : ''}}">
             <i class="nav-icon fa fa-user-circle"></i>

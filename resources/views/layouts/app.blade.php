@@ -25,6 +25,25 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('AdminLTE-3.2/dist/css/adminlte.min.css')}}" />
+
+    <style>
+        .main-sidebar {
+          height: 100vh; /* Full viewport height */
+          overflow-y: auto; /* Aktifkan scrollbar vertikal */
+          position: fixed; /* Tetap di tempat saat scroll halaman */
+        }
+      
+        .content-wrapper {
+          margin-left: 250px; /* Sesuaikan lebar sidebar */
+        }
+      
+        @media (max-width: 768px) {
+          .content-wrapper {
+            margin-left: 0; /* Untuk tampilan mobile */
+          }
+        }
+      </style>
+      
     
 </head>
 <!--
